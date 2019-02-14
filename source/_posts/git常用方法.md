@@ -16,4 +16,9 @@ Git(分布式版本控制系统)是一个开源的分布式版本控制系统，
 首先，判断你是否安装了Git,使用`git --version`命令，
 
 
+# 分支
 
+## 删除远程分支
+```
+git push origin --delete <branch name>
+```
