@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[git常用方法]]></title>
+    <url>%2F2019%2F02%2F14%2Fgit%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[Git简介Git(分布式版本控制系统)是一个开源的分布式版本控制系统，可以有效高速地处理从很小到非常大的项目版本管理，Git是LinusTorvalds为了帮助管理Linux内核开发而编写的一个开放源代码的版本控制软件。 安装Git首先，判断你是否安装了Git,使用git --version命令， 分支删除远程分支1git push origin --delete &lt;branch name&gt;]]></content>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[博客常用插件]]></title>
+    <url>%2F2019%2F02%2F13%2F%E5%8D%9A%E5%AE%A2%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Markdown语法]]></title>
+    <url>%2F2019%2F02%2F13%2FMarkdown%E8%AF%AD%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[认识MakedownMakedown是一种标记语言，大多数人第一个会想到Html,他就是一种标记语言（HTML应该是一种超文本标记语言，所谓超文本标记语言就是指文本中可以包含图片音乐、链接等非文字的元素，又称富文本，但是本质依然是一种标记语言）。所谓标记语言就是用特定的标识符对一段文字进行标记，从而实现使用者对文字的排版，而在此之前，我们实现文字排版大部分都是使用其他工具（WPS、World、Pages）等实现，但是不免存在一些弊端： 需要安装一个重量级的工具，不管时World、Pages还是WPS,安装起来都非常占用空间。 有些正版工具非常昂贵，盗版工具体验差（支持正版）。 工具版本不同，文本排版时可能会有些差别，也就是用World写一个文本，再用WPS打开有时会出现一些诸如排版、字体大小、行间距等等不一致的情况。 针对以上问题，标记性语言可以解决，他所具有的有点有： 轻量级，甚至已经有多款在线的makedown编辑工具也非常好用。 完全免费。 兼容性好，GitHub、CSDN、简书等网站均支持Markdown语法，不存在版本显示的问题。 语法简介标题在你想要设置标题的文字前面添加#，一个#是一级标题，两个#是二级标题，以此类推： 123456# 一级标题## 二级标题### 三级标题#### 四级标题##### 五级标题###### 六级标题 效果： 字体加粗在要加粗的文字左右两边分别用两个*包起来。斜体在要倾斜的文字左右两边分别用一个*包起来。斜体加粗在要斜体和加粗的文字左右分别用三个*包起来删除线在要贾删除线的文字左右两边分别用两个~号包起来。示例：1234*这是斜体文字***这是加粗文字*****斜体加粗文字***~~这是删除线文字~~ 效果:这是斜体文字这是加粗文字这是斜体加粗文字这是删除线文字 引用在引用的文字前面加&gt;即可。引用也可以嵌套，例如加两个 &gt;&gt; 三个 &gt;&gt;&gt; n个…示例：123&gt;这是引用内容&gt;&gt;注意，前方高能！&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;高能~ 效果： 这是引用内容 注意，前方高能！ 高能~ 分割线三个或者三个以上的 - 或者 * 都可以示例：12-----*** 效果：图片语法：123![图片alt](图片的地址 &apos;&apos;图片titel&apos;&apos;)图片alt就是显示在图片下面的文字，一般是对图片的内容进行解释图片的titel就是图片的标题，当鼠标移动到图片上时显示的内容，titel可要可不要 示例：1![我是图片alt](/img/rainbow.png &apos;我是titel&apos;) 效果： 超链接语法：12[超链接名](超链接地址， &apos;超链接title&apos;)跟图片类似title可加可不加 示例：12[Github](https://github.com)[！404](https://google.com) 效果:Github！404 注意:Markdown本身语法不支持链接在新页面打开，如果想要在新页面打开链接的话可以使用html语言的a标签代替1&lt;a href=&quot;超链接地址&quot; target=&quot;_blank&quot;&gt;超链接名&lt;/a&gt; 示例：1&lt;a href=&quot;https://github.com/RainBowAurora&quot; target=&quot;_blank&quot;&gt;我的github&lt;/a&gt; 效果:我的github 列表 无序列表语法:无序列表用-+\*任何一种都可以12345- 列表内容1+ 列表内容2* 列表内容3注意： - + * 跟内容之间都有一个空格 效果： 列表内容1 列表内容2 列表内容3 有序列表语法：文字前数字加点 1231. 列表内容12. 列表内容23. 列表内容3 效果： 列表内容1 列表内容2 列表内容3 列表嵌套上一级和下一级之间加三个空格即可 一级无序内容 二级无序内容 二级无序内容 二级无序内容 一级无序内容 二级有序内容 二级有序内容 二级有序内容 一级有序内容 二级无序内容 二级无序内容 二级无序内容 一级有序内容 二级有序内容 二级有序内容 二级有序内容 表格语法：12345678910表头|表头|表头----|:--:|----:内容|内容|内容内容|内容|内容第二行分割表头和内容`-` 一个就够了，有时为了对齐可以多加几个文字默认居左`:-:`文字居中`-:`居右 示例：12345姓名|性别|年龄----|:--:|--:六六|女|28壮壮|男|25花花|男|30 效果： 姓名 性别 年龄 六六 女 28 壮壮 男 25 花花 男 30 注意：在编写表格的时候，表头之前因该空一行，否则表格不会正常显示。 代码语法：单行代码：代码之间分别用一个反引号扩起来1`单行代码` 代码块：代码之间用三个反引号扩起来，并且反引号独占一行12345（```） 代码 ... 代码 ... 代码 ...（```） 注意：为了防止转译，上述的代码块中的三个反引号添加了小括号()，在正常使用的时候没有小括号，这里只是为了演示。 示例： 单行代码 1`#include &lt;iostream&gt;` 代码块 12345678(```)#include &lt;stdio.h&gt;int main(int argc, char *argv[])&#123; printf(&quot;Hello world~!&quot;); return 0;&#125;(```) 效果： 单行代码#include &lt;iostream&gt; 代码块123456#include &lt;stdio.h&gt;int main(int argc, char *argv[])&#123; printf(&quot;Hello world~!&quot;); return 0; &#125; 参考网址参考：https://www.jianshu.com/p/b421cc723da5https://www.jianshu.com/p/191d1e21f7edhttps://www.jianshu.com/p/335db5716248https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#cmd-markdown]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Mkdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2019%2F02%2F13%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+</search>
