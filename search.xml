@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[git常用方法]]></title>
     <url>%2F2019%2F02%2F14%2Fgit%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[Git简介Git(分布式版本控制系统)是一个开源的分布式版本控制系统，可以有效高速地处理从很小到非常大的项目版本管理，Git是LinusTorvalds为了帮助管理Linux内核开发而编写的一个开放源代码的版本控制软件。 安装Git首先，判断你是否安装了Git,使用git --version命令， 分支删除远程分支1git push origin --delete &lt;branch name&gt;]]></content>
+    <content type="text"><![CDATA[Git简介Git(分布式版本控制系统)是一个开源的分布式版本控制系统，可以有效高速地处理从很小到非常大的项目版本管理，Git是LinusTorvalds为了帮助管理Linux内核开发而编写的一个开放源代码的版本控制软件。 安装Git首先，判断你是否安装了Git,使用git --version命令， 分支删除远程分支1git push origin --delete &lt;branch name&gt; ddd]]></content>
       <tags>
         <tag>Git</tag>
       </tags>
