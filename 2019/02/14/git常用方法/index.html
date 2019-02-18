@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="Git简介Git(分布式版本控制系统)是一个开源的分布式版本控制系统，可以有效高速地处理从很小到非常大的项目版本管理，Git是LinusTorvalds为了帮助管理Linux内核开发而编写的一个开放,"> 
+    
     <meta name="author" content="John Doe"> 
     <link rel="alternative" href="atom.xml" title="RainBow" type="application/atom+xml"> 
     <link rel="icon" href="/img/rainbowico.png"> 
@@ -52,10 +52,66 @@
 
         </div>
         <div class="content markdown">
-            <h1 id="Git简介"><a href="#Git简介" class="headerlink" title="Git简介"></a>Git简介</h1><p>Git(分布式版本控制系统)是一个开源的分布式版本控制系统，可以有效高速地处理从很小到非常大的项目版本管理，Git是LinusTorvalds为了帮助管理Linux内核开发而编写的一个开放源代码的版本控制软件。</p>
-<h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1><p>首先，判断你是否安装了Git,使用<code>git --version</code>命令，</p>
+            <h1 id="Git简介"><a href="#Git简介" class="headerlink" title="Git简介"></a>Git简介</h1><p>Git 是一个开元分布式版本控制系统，用于敏捷高效地处理任何大小项目。Git是Linus Rorvalds为了帮助管理Linux内核开发而开发的一个开放源代码的版本控制软件。Git与常用的版本控制工具CVS，Subversion等不同，它采用了分布式版本库方式不必服务器端软件支持。</p>
+<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><ol>
+<li>Git菜鸟教程地址：<a href="http://www.runoob.com/git/git-tutorial.html" target="_blank" rel="noopener">http://www.runoob.com/git/git-tutorial.html</a></li>
+<li>Git完整命令手册地址：<a href="http://git-scm.com/docs" target="_blank" rel="noopener">http://git-scm.com/docs</a></li>
+<li>PDF命令手册： <a href="github-git-cheat-sheet.pdf">github-git-cheat-sheet.pdf</a></li>
+</ol>
+<h1 id="Git-工作流程"><a href="#Git-工作流程" class="headerlink" title="Git 工作流程"></a>Git 工作流程</h1><p>一般Git遵循一下工作流程：</p>
+<ul>
+<li>克隆Git资源作为目录。</li>
+<li>在克隆的资源上添加或者修改文件。</li>
+<li>如果其他人修改了，你可以更新资源。</li>
+<li>在提交前查看修改。</li>
+<li>修改完成之后，如果发现错误，可以撤回并且再次修改并提交。</li>
+</ul>
+<p><img src="/img/git/3.jpg" alt="Git工作流程"></p>
+<h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1><ol>
+<li>首先，判断你是否安装了Git,使用<code>git --version</code>命令，<blockquote>
+<p>结果如下则证明已经安装git：<br><img src="/img/git/1.png" alt="安装成功"></p>
+</blockquote>
+</li>
+</ol>
+<p>如果没有提示已经安装，则可使用下面命令进行安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>安装完成之后，打开终端初始化一下设置：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;Your Name&quot;</span><br><span class="line">$ git config --global user.email &quot;Your Enail&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>设置成功之后可以使用 <code>git config --list</code> 进行查看</p>
+</blockquote>
+<p>因为Git是分布式版本控制系统，所以需要每台机器自报家门。注意上面<code>--global</code>这个参数表示这台机器上所有的Git仓库都会使用这个配置，当然你也可以制定对某个仓库指定不同的用户名和邮箱。</p>
+<h1 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h1><p>版本仓库又名仓库，英文名字repository,你可以简单的理解为一个目录,这个目录里面所有的文件都可以被Git管理起来，每个文件的修改，删除，Git都可以跟踪。这样就方便在任何时刻追溯历史，或者在将来的某一个时刻进行还原（回滚）。</p>
+<h2 id="git-init"><a href="#git-init" class="headerlink" title="git init"></a>git init</h2><p>通过<code>git init</code>命令可以吧一个目录变成Git仓库，Git的很多命令都需要在Git的仓库中运行，所以<code>Git init</code>是使用Git的第一条命令。执行完成<code>Git init</code>命令后，Git仓库会生成一个<code>.git</code>目录，该目录包含了资源的所有数据，其他项目目录保持不变。</p>
+<p>使用方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository in /home/xxx/xxx/.git/</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>使用我们制定的目录作为Git仓库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init &lt;newrepo&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h2><p>经过上一步的初始化后，如果当前目录下有几个文件想要纳入版本控制，需要先用<code>git add</code>命令告诉Git开始对这些文件进行跟踪：<br>使用方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;file name&gt;</span><br><span class="line">$ git commit -m &quot;修改的标注&quot;</span><br></pre></td></tr></table></figure></p>
+<p>以上命令可以讲文件提交到仓库中，存放在git管理的缓存区中。</p>
+<h2 id="Git-clone"><a href="#Git-clone" class="headerlink" title="Git clone"></a>Git clone</h2><p>我们使用<code>git clone</code>命令从现有的仓库中拷贝项目。<br>克隆仓库的命令格式为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;repo&gt; &lt;directory&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>参数说明：</p>
+<ul>
+<li>reop:Git仓库链接。</li>
+<li>directory:本地仓库目录</li>
+</ul>
+</blockquote>
+<p>例如：</p>
+<ol>
+<li><p>要克隆OpenCv代码到仓库，可以用一下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/opencv/opencv.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果要自己定义要新建的项目目录名称，可以使用上面的命令在末尾加上新目录的名字即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/opencv/opencv.git opencv_source</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p><code>git clone 时</code>，可以使用不同的协议，包括ssh，git，https等，其中最常见的就是ssh，因为速度较快，还可以配置公共密钥免去密码输入：<br>使用形式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@github.com:opencv/opencv.git		--SSH协议</span><br><span class="line">$ git clone git://github.com/opencv/opencv.git		--GIT协议</span><br><span class="line">$ git clone https://github.com/opencv/opencv.git	--HTTPS协议</span><br></pre></td></tr></table></figure></p>
+</blockquote>
 <h1 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h1><h2 id="删除远程分支"><a href="#删除远程分支" class="headerlink" title="删除远程分支"></a>删除远程分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete &lt;branch name&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="ddd"><a href="#ddd" class="headerlink" title="ddd"></a>ddd</h1>
+
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
                 <source type="audio/mpeg" src="https://link.hhtjim.com/163/18782895.mp3">
@@ -69,7 +125,7 @@
     </div>
     
         <div class="side">
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Git简介"><span class="toc-number">1.</span> <span class="toc-text">Git简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装Git"><span class="toc-number">2.</span> <span class="toc-text">安装Git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分支"><span class="toc-number">3.</span> <span class="toc-text">分支</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#删除远程分支"><span class="toc-number">3.1.</span> <span class="toc-text">删除远程分支</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ddd"><span class="toc-number">4.</span> <span class="toc-text">ddd</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Git简介"><span class="toc-number">1.</span> <span class="toc-text">Git简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#快速入门"><span class="toc-number">1.1.</span> <span class="toc-text">快速入门</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git-工作流程"><span class="toc-number">2.</span> <span class="toc-text">Git 工作流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装Git"><span class="toc-number">3.</span> <span class="toc-text">安装Git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#创建仓库"><span class="toc-number">4.</span> <span class="toc-text">创建仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#git-init"><span class="toc-number">4.1.</span> <span class="toc-text">git init</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-add"><span class="toc-number">4.2.</span> <span class="toc-text">git add</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-clone"><span class="toc-number">4.3.</span> <span class="toc-text">Git clone</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分支"><span class="toc-number">5.</span> <span class="toc-text">分支</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#删除远程分支"><span class="toc-number">5.1.</span> <span class="toc-text">删除远程分支</span></a></li></ol></li></ol>
         </div>
     
 </div>
