@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Fechin,"> 
-    
+    <meta name="description" content="认识MakedownMakedown是一种标记语言，大多数人第一个会想到Html,他就是一种标记语言（HTML应该是一种超文本标记语言，所谓超文本标记语言就是指文本中可以包含图片音乐、链接等非文字的,"> 
     <meta name="author" content="John Doe"> 
     <link rel="alternative" href="atom.xml" title="RainBow" type="application/atom+xml"> 
     <link rel="icon" href="/img/rainbowico.png"> 
@@ -67,7 +67,14 @@
 <li>修改完成之后，如果发现错误，可以撤回并且再次修改并提交。</li>
 </ul>
 <p><img src="/img/git/3.jpg" alt="Git工作流程"></p>
-<h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1><ol>
+<h2 id="Git工作区暂存区和版本库"><a href="#Git工作区暂存区和版本库" class="headerlink" title="Git工作区暂存区和版本库"></a>Git工作区暂存区和版本库</h2><ul>
+<li>工作区：就是你电脑能够看到的目录</li>
+<li>暂存区：英文名叫stage或者index。一般存放在“.git”目录下，的index文件（.git/index）中，所以我们把暂存区有事也叫作索引（index）。</li>
+<li>版本库：工作区有一个隐藏目录.git这个不算工作区，而是Git的版本庫。<br>下面这个图展示了工作区、版本库、暂存区之间的关系：<br><img src="/img/git/2.jpg" alt="Git版本库和暂存区之间的关系"><br>图中左侧为工作区，右侧为版本库。在版本库中标记为“index”的工作区是暂存区（stage,index），标记为“master”的是master分之所代表的目录树。    </li>
+</ul>
+<ol>
+<li>当工作区修改（增加）的文件执行<code>git add</code>命令，暂存区的目录树被更新。</li>
+<li>当执<code>git commit</code>命令时，暂存区的目录树<h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1></li>
 <li>首先，判断你是否安装了Git,使用<code>git --version</code>命令，<blockquote>
 <p>结果如下则证明已经安装git：<br><img src="/img/git/1.png" alt="安装成功"></p>
 </blockquote>
@@ -125,7 +132,7 @@
     </div>
     
         <div class="side">
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Git简介"><span class="toc-number">1.</span> <span class="toc-text">Git简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#快速入门"><span class="toc-number">1.1.</span> <span class="toc-text">快速入门</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git-工作流程"><span class="toc-number">2.</span> <span class="toc-text">Git 工作流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装Git"><span class="toc-number">3.</span> <span class="toc-text">安装Git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#创建仓库"><span class="toc-number">4.</span> <span class="toc-text">创建仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#git-init"><span class="toc-number">4.1.</span> <span class="toc-text">git init</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-add"><span class="toc-number">4.2.</span> <span class="toc-text">git add</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-clone"><span class="toc-number">4.3.</span> <span class="toc-text">Git clone</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分支"><span class="toc-number">5.</span> <span class="toc-text">分支</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#删除远程分支"><span class="toc-number">5.1.</span> <span class="toc-text">删除远程分支</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Git简介"><span class="toc-number">1.</span> <span class="toc-text">Git简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#快速入门"><span class="toc-number">1.1.</span> <span class="toc-text">快速入门</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git-工作流程"><span class="toc-number">2.</span> <span class="toc-text">Git 工作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git工作区暂存区和版本库"><span class="toc-number">2.1.</span> <span class="toc-text">Git工作区暂存区和版本库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装Git"><span class="toc-number">3.</span> <span class="toc-text">安装Git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#创建仓库"><span class="toc-number">4.</span> <span class="toc-text">创建仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#git-init"><span class="toc-number">4.1.</span> <span class="toc-text">git init</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-add"><span class="toc-number">4.2.</span> <span class="toc-text">git add</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-clone"><span class="toc-number">4.3.</span> <span class="toc-text">Git clone</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分支"><span class="toc-number">5.</span> <span class="toc-text">分支</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#删除远程分支"><span class="toc-number">5.1.</span> <span class="toc-text">删除远程分支</span></a></li></ol></li></ol>
         </div>
     
 </div>
