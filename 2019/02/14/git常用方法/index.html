@@ -11,7 +11,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="认识MakedownMakedown是一种标记语言，大多数人第一个会想到Html,他就是一种标记语言（HTML应该是一种超文本标记语言，所谓超文本标记语言就是指文本中可以包含图片音乐、链接等非文字的,"> 
+    <meta name="description" content="基本操作初始化下载1$ sudo apt-get install git
+设置12$ git config --global user.name &amp;quot;your name&amp;quot;$ git,"> 
     <meta name="author" content="John Doe"> 
     <link rel="alternative" href="atom.xml" title="RainBow" type="application/atom+xml"> 
     <link rel="icon" href="/img/rainbowico.png"> 
@@ -52,72 +53,149 @@
 
         </div>
         <div class="content markdown">
-            <h1 id="Git简介"><a href="#Git简介" class="headerlink" title="Git简介"></a>Git简介</h1><p>Git 是一个开元分布式版本控制系统，用于敏捷高效地处理任何大小项目。Git是Linus Rorvalds为了帮助管理Linux内核开发而开发的一个开放源代码的版本控制软件。Git与常用的版本控制工具CVS，Subversion等不同，它采用了分布式版本库方式不必服务器端软件支持。</p>
-<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><ol>
-<li>Git菜鸟教程地址：<a href="http://www.runoob.com/git/git-tutorial.html" target="_blank" rel="noopener">http://www.runoob.com/git/git-tutorial.html</a></li>
-<li>Git完整命令手册地址：<a href="http://git-scm.com/docs" target="_blank" rel="noopener">http://git-scm.com/docs</a></li>
-<li>PDF命令手册： <a href="github-git-cheat-sheet.pdf">github-git-cheat-sheet.pdf</a></li>
-</ol>
-<h1 id="Git-工作流程"><a href="#Git-工作流程" class="headerlink" title="Git 工作流程"></a>Git 工作流程</h1><p>一般Git遵循一下工作流程：</p>
-<ul>
-<li>克隆Git资源作为目录。</li>
-<li>在克隆的资源上添加或者修改文件。</li>
-<li>如果其他人修改了，你可以更新资源。</li>
-<li>在提交前查看修改。</li>
-<li>修改完成之后，如果发现错误，可以撤回并且再次修改并提交。</li>
+            <h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p><strong>下载</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
+<p><strong>设置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;your name&quot;</span><br><span class="line">$ git config --global user.email &quot;your email&quot;</span><br></pre></td></tr></table></figure></p>
+<h2 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h2><ul>
+<li><code>git init</code>: 在一个文件目录执行该命令，会把该目录快速设置成Git的代码仓库。</li>
+<li><code>git clone</code>: 从远程服务器clone工程，也会创建一个代码长裤。</li>
 </ul>
-<p><img src="/img/git/3.jpg" alt="Git工作流程"></p>
-<h2 id="Git工作区暂存区和版本库"><a href="#Git工作区暂存区和版本库" class="headerlink" title="Git工作区暂存区和版本库"></a>Git工作区暂存区和版本库</h2><ul>
-<li>工作区：就是你电脑能够看到的目录</li>
-<li>暂存区：英文名叫stage或者index。一般存放在“.git”目录下，的index文件（.git/index）中，所以我们把暂存区有事也叫作索引（index）。</li>
-<li>版本库：工作区有一个隐藏目录.git这个不算工作区，而是Git的版本庫。<br>下面这个图展示了工作区、版本库、暂存区之间的关系：<br><img src="/img/git/2.jpg" alt="Git版本库和暂存区之间的关系"><br>图中左侧为工作区，右侧为版本库。在版本库中标记为“index”的工作区是暂存区（stage,index），标记为“master”的是master分之所代表的目录树。    </li>
+<h2 id="提交修改"><a href="#提交修改" class="headerlink" title="提交修改"></a>提交修改</h2><ul>
+<li><code>git status</code>: 查看当前仓库状态，会提示那些文件进行了修改，增加或者删除，那些内容还没有进行提交。<blockquote>
+<p><code>git status -s</code>：用来查看当前仓库状态信息的简写：<br>M-被修改、A-被添加、D-被删除、R-重命名、??-未跟踪</p>
+</blockquote>
+</li>
+<li><p><code>git add</code>: 添加文件到暂存区。</p>
+</li>
+<li><p><code>git commit -m &quot;注释&quot;</code>： 将暂存区的的修改提交到版本库。</p>
+<blockquote>
+<p>如果发现上一个注释写错，需要进行修改和追加，可以使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -amend -m &quot;追加注释，覆盖之前的注释&quot;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><code>git log</code>:查看历史提交信息。</p>
+<blockquote>
+<p><code>git shortlog</code>: 按照姓名对开发者分组，查看提交</p>
+</blockquote>
+</li>
+<li><code>git reflog</code>: 查看所有操作历史。</li>
 </ul>
+<h2 id="修改比较"><a href="#修改比较" class="headerlink" title="修改比较"></a>修改比较</h2><ul>
+<li><code>git diff &lt;file&gt;</code> : 显示指定文件的前后变化</li>
+<li><code>git diff HEAD</code> : 与上一次提交进行对比</li>
+<li><code>gitk</code>: 图形化log记录</li>
+</ul>
+<h2 id="Git操作区域"><a href="#Git操作区域" class="headerlink" title="Git操作区域"></a>Git操作区域</h2><p>Git一共有三个区域：</p>
 <ol>
-<li>当工作区修改（增加）的文件执行<code>git add</code>命令，暂存区的目录树被更新。</li>
-<li>当执<code>git commit</code>命令时，暂存区的目录树<h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1></li>
-<li>首先，判断你是否安装了Git,使用<code>git --version</code>命令，<blockquote>
-<p>结果如下则证明已经安装git：<br><img src="/img/git/1.png" alt="安装成功"></p>
-</blockquote>
-</li>
-</ol>
-<p>如果没有提示已经安装，则可使用下面命令进行安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
-<ol start="2">
-<li>安装完成之后，打开终端初始化一下设置：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;Your Name&quot;</span><br><span class="line">$ git config --global user.email &quot;Your Enail&quot;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<blockquote>
-<p>设置成功之后可以使用 <code>git config --list</code> 进行查看</p>
-</blockquote>
-<p>因为Git是分布式版本控制系统，所以需要每台机器自报家门。注意上面<code>--global</code>这个参数表示这台机器上所有的Git仓库都会使用这个配置，当然你也可以制定对某个仓库指定不同的用户名和邮箱。</p>
-<h1 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h1><p>版本仓库又名仓库，英文名字repository,你可以简单的理解为一个目录,这个目录里面所有的文件都可以被Git管理起来，每个文件的修改，删除，Git都可以跟踪。这样就方便在任何时刻追溯历史，或者在将来的某一个时刻进行还原（回滚）。</p>
-<h2 id="git-init"><a href="#git-init" class="headerlink" title="git init"></a>git init</h2><p>通过<code>git init</code>命令可以吧一个目录变成Git仓库，Git的很多命令都需要在Git的仓库中运行，所以<code>Git init</code>是使用Git的第一条命令。执行完成<code>Git init</code>命令后，Git仓库会生成一个<code>.git</code>目录，该目录包含了资源的所有数据，其他项目目录保持不变。</p>
-<p>使用方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository in /home/xxx/xxx/.git/</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>使用我们制定的目录作为Git仓库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init &lt;newrepo&gt;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h2 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h2><p>经过上一步的初始化后，如果当前目录下有几个文件想要纳入版本控制，需要先用<code>git add</code>命令告诉Git开始对这些文件进行跟踪：<br>使用方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;file name&gt;</span><br><span class="line">$ git commit -m &quot;修改的标注&quot;</span><br></pre></td></tr></table></figure></p>
-<p>以上命令可以讲文件提交到仓库中，存放在git管理的缓存区中。</p>
-<h2 id="Git-clone"><a href="#Git-clone" class="headerlink" title="Git clone"></a>Git clone</h2><p>我们使用<code>git clone</code>命令从现有的仓库中拷贝项目。<br>克隆仓库的命令格式为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;repo&gt; &lt;directory&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>参数说明：</p>
-<ul>
-<li>reop:Git仓库链接。</li>
-<li>directory:本地仓库目录</li>
+<li>工作区 - 开发修改代码的区域<ul>
+<li>如果工作区发生修改，则需要使用<code>git add</code>命令将修改提交到暂存区。</li>
 </ul>
-</blockquote>
-<p>例如：</p>
-<ol>
-<li><p>要克隆OpenCv代码到仓库，可以用一下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/opencv/opencv.git</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>如果要自己定义要新建的项目目录名称，可以使用上面的命令在末尾加上新目录的名字即可：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/opencv/opencv.git opencv_source</span><br></pre></td></tr></table></figure>
+<li>暂存区 - 在工作目录下<code>./.git/index</code>的文件中，板寸了所有代码提交的记录。<ul>
+<li>Git管理的是修改内容而不是文件</li>
+</ul>
+</li>
+<li>版本库区 - 保存了各个版本代码的区域。<ul>
+<li>通过<code>git add</code>命令提交修改之后，Head依然指向之前提交的内容，通过<code>git commit</code>将暂存区的内容提交之后，Head会指向最新内容。</li>
+</ul>
 </li>
 </ol>
-<blockquote>
-<p><code>git clone 时</code>，可以使用不同的协议，包括ssh，git，https等，其中最常见的就是ssh，因为速度较快，还可以配置公共密钥免去密码输入：<br>使用形式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@github.com:opencv/opencv.git		--SSH协议</span><br><span class="line">$ git clone git://github.com/opencv/opencv.git		--GIT协议</span><br><span class="line">$ git clone https://github.com/opencv/opencv.git	--HTTPS协议</span><br></pre></td></tr></table></figure></p>
+<h2 id="Git退回"><a href="#Git退回" class="headerlink" title="Git退回"></a>Git退回</h2><ul>
+<li><code>git reset --hard &lt;版本号&gt;</code>: 将记录退回到版本号所在位置。<blockquote>
+<p><code>git reset --hard HEAD~3</code> : 表示退回三个版本</p>
 </blockquote>
-<h1 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h1><h2 id="删除远程分支"><a href="#删除远程分支" class="headerlink" title="删除远程分支"></a>删除远程分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete &lt;branch name&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><code>git checkout -- &lt;file&gt;</code>: 可以丢弃工作区的修改。</li>
+<li><code>git reset HEAD &lt;file&gt;</code>: 可以把暂存区的修改撤销,重新放回工作区。</li>
+</ul>
+<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><ul>
+<li><code>git rm &lt;file&gt;</code>: 删除文件。</li>
+</ul>
+<h2 id="文件暂存"><a href="#文件暂存" class="headerlink" title="文件暂存"></a>文件暂存</h2><ul>
+<li><code>git stash</code>: 将当前内容进行暂存。</li>
+<li><code>git stash list</code>: 查看当前暂存区的内容。</li>
+<li><code>git stash apply/pop</code>: 内容恢复，后者会删除记录，前者可以通过git stash drop删除暂存记录。</li>
+</ul>
+<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><ul>
+<li><code>ssh-keygen -t rsa -C &quot;yourname@example.com&quot;</code>: 创建一个ssh-key，自动在用户家目录下创建一个.ssh目录，其中包含两个文件。<blockquote>
+<p>id_rsa: 私有密钥，不能泄露出去。<br>id_rsa.pub: 共有密钥，可以放心告诉别人。</p>
+</blockquote>
+</li>
+<li><code>git remote add origin git@github.com:michaelliao/learngit.git</code>: 仓库关联</li>
+<li><code>git push -u origin master</code>: 将本地的master分支提交到远程的master分支，并关联起来。</li>
+<li><code>git pull -rebase</code>: 如果Apush之前，Bpush了修改，Apush的时候需要从远程获取最新修改，这个指令不会产生过多的merge历史。<br><strong>git撤销提交到远程仓库的commit</strong><br>git如果想撤销已经提交到远程仓库的commit，可以首先在仓库中使用<code>git reset -hard[commit_id]</code>将本地版本库重置为需要撤销的版本，然后使用<code>git push -f origin</code>进行提交，这样可以强制远程仓库与本地仓库一致。<blockquote>
+<p>比方说我想回到asdlk34ic这个commit_id：</p>
+<ol>
+<li>首先我需要在本地进行还原<blockquote>
+<p><code>git reset --hard asdlk34ic</code></p>
+</blockquote>
+</li>
+<li>然后强制push到远程仓库。<blockquote>
+<p><code>git push -f origin</code></p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p>这样的操作方式可以使撤销的commit不在log日志中，或者也可以使用git revert命令进行撤销：</p>
+<blockquote>
+<p>git reset 主要有<code>-soft -mixed -hard</code>三种方式</p>
+<blockquote>
+<p>-soft这个就是除了git commit还原其他的都保留，比如所git status里面的内容和代码的修改。<br>-mixed这个就是除了代码修改保留外其他的都还原， 包括git commit 和git status里面的内容。<br>-hard这个就是将所有的都还原，包括代码，git add后的内容以及git commit里面的内容。</p>
+</blockquote>
+</blockquote>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><ul>
+<li><p><code>git checkout -b &lt;branch name&gt;</code>: 新建并切换分支</p>
+<blockquote>
+<p>上面的命令等价于：<br><code>git branch &lt;branch name&gt;</code>: 创建新分支<br><code>git checkout &lt;brach name&gt;</code>: 切换分支<br>如果此时有未提交的修改是无法切换分之的，这个时候就可以用<code>git stash</code>进行暂存。</p>
+</blockquote>
+</li>
+<li><p><code>git branch</code>: 查看分支</p>
+<blockquote>
+<p><code>git branch -r</code>: 查看所有远程分支。<br><code>git branch -a</code>: 显示所有本地分支和远程分支。</p>
+</blockquote>
+</li>
+<li><p><code>git merge &lt;branch name&gt;</code>:　合并分支</p>
+<blockquote>
+<p>在其他分支进行修改、add、commit后，切换到master分支，合并第一个分支到master分支。</p>
+</blockquote>
+</li>
+<li><p><code>git branch -d &lt;branch name&gt;</code>: 删除分支</p>
+<blockquote>
+<p><code>git branch -D &lt;branch name&gt;</code>: 强制删除分支</p>
+</blockquote>
+</li>
+<li><p><code>git remote origin</code>: 查看远程分支</p>
+<blockquote>
+<p><code>git remote -v origin</code>: 查看远程分支详细信息</p>
+</blockquote>
+</li>
+<li><p><code>git push origin &lt;branch name&gt;</code>: 将分支推送到远程仓库</p>
+</li>
+<li><p><code>git push origin -delete &lt;branch name&gt;</code>: 删除远程分支。</p>
+</li>
+</ul>
+<h2 id="tag标签管理"><a href="#tag标签管理" class="headerlink" title="tag标签管理"></a>tag标签管理</h2><p>Tag用于记录某个commit点或者分支的历史快照，Tag通常打在Master分支上，以保证代码的准确性。</p>
+<ul>
+<li><code>git tag v1.0</code>:创建Tag，惠济路在最后的提交上。</li>
+<li><code>git tag v1.0 &lt;commit_id&gt;</code>: 在指定的commit_id上打标签</li>
+<li><code>git tag</code>:查看所有标签</li>
+<li><p><code>git tag -a v.10 -m &quot;doc&quot;</code></p>
+<blockquote>
+<p>-a指定tag名字， -m指定注释文字</p>
+</blockquote>
+</li>
+<li><p><code>git show &lt;tag_name&gt;</code>: 显示tag详细信息。</p>
+</li>
+<li><p><code>git tag -d &lt;tag_name&gt;</code>: 删除标签</p>
+<blockquote>
+<p>先删除本地标签，再从新Push到远程仓库。</p>
+</blockquote>
+</li>
+<li><p><code>git push origin &lt;tag_name&gt;</code>: 推送tag到远程仓库</p>
+</li>
+<li><code>git push origin -tags</code>: 推送所有的本地标签到远程仓库</li>
+</ul>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
@@ -132,7 +210,7 @@
     </div>
     
         <div class="side">
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Git简介"><span class="toc-number">1.</span> <span class="toc-text">Git简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#快速入门"><span class="toc-number">1.1.</span> <span class="toc-text">快速入门</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git-工作流程"><span class="toc-number">2.</span> <span class="toc-text">Git 工作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git工作区暂存区和版本库"><span class="toc-number">2.1.</span> <span class="toc-text">Git工作区暂存区和版本库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装Git"><span class="toc-number">3.</span> <span class="toc-text">安装Git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#创建仓库"><span class="toc-number">4.</span> <span class="toc-text">创建仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#git-init"><span class="toc-number">4.1.</span> <span class="toc-text">git init</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-add"><span class="toc-number">4.2.</span> <span class="toc-text">git add</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-clone"><span class="toc-number">4.3.</span> <span class="toc-text">Git clone</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分支"><span class="toc-number">5.</span> <span class="toc-text">分支</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#删除远程分支"><span class="toc-number">5.1.</span> <span class="toc-text">删除远程分支</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本操作"><span class="toc-number">1.</span> <span class="toc-text">基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化"><span class="toc-number">1.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建仓库"><span class="toc-number">1.2.</span> <span class="toc-text">创建仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提交修改"><span class="toc-number">1.3.</span> <span class="toc-text">提交修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改比较"><span class="toc-number">1.4.</span> <span class="toc-text">修改比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git操作区域"><span class="toc-number">1.5.</span> <span class="toc-text">Git操作区域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git退回"><span class="toc-number">1.6.</span> <span class="toc-text">Git退回</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件操作"><span class="toc-number">1.7.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件暂存"><span class="toc-number">1.8.</span> <span class="toc-text">文件暂存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#远程仓库"><span class="toc-number">1.9.</span> <span class="toc-text">远程仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支管理"><span class="toc-number">1.10.</span> <span class="toc-text">分支管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tag标签管理"><span class="toc-number">1.11.</span> <span class="toc-text">tag标签管理</span></a></li></ol></li></ol>
         </div>
     
 </div>
