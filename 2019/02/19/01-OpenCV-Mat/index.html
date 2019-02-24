@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RainBow</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="起源OpenCV作为一个强大的开源计算机库,从早期的OpenCV1.x版本中,图像处理是通过lplimage(该名称源于另一个开源库Intel image Processing Library)结构,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="RainBow" type="application/atom+xml"> 
+    <link rel="icon" href="/img/rainbowico.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+</head>
+</html>
+<body class="loading">
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">01 OpenCV-Mat</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">01 OpenCV-Mat</h1>
+        <div class="stuff">
+            <span>二月 19, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Opencv/">Opencv</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h1><p>OpenCV作为一个强大的开源计算机库,从早期的OpenCV1.x版本中,图像处理是通过lplimage(该名称源于另一个开源库Intel image Processing Library)结构来实现,早期的OpenCV完全是C的编程风格,lplimage结构是OpenCV矩阵运算的数据结构.到了OpenCV2.0版本,OpenCV开源库引入了面向对象的编程思想,大量的源代码用C++重新构建,Mat类(Matix矩阵的缩写),是OpenCV用于处理图像而引入的一个封装类,从功能上来讲,Mat类在lplimage结构基础上进一步增强,并且引入了C++高级特性,如果你要查看Mat定义的话可以到源代码目录下<code>opencv/modules/core/include/opencv2/core/mat.hpp</code>进行查看,你会发现其设计十分全面具体,基本覆盖了计算机视觉库对于图像处理的基本要求.</p>
+<h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><p>OpenCV包含有许多类型的构造函数,能够很方便用户的使用:</p>
+<ol>
+<li><p>默认构造函数(无参构造函数)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat::Mat()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用行数 列书 图像类型 初始化的构造的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat::Mat(int rows, int cols, int type)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用size类型初始化图像大小的构造函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat::Mat(Size size, int type)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用行数和列书设定图像大小,并且使用Scalar设置图像初始值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat::Mat(int rows, int cols, int type, const Scalar &amp;s)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用Size初始化图像大小,使用Scalar设置图像初始值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat::Mat(Size size, int type, const Scalar &amp;s)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拷贝构造函数,属于浅拷贝</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat::Mat(const Mat &amp;m)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用行数列数设置图像大小,不创建图像数据所需的内存,直接使用data所指内存,图像的步长由Setp决定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat::Mat(int rows, int cols, int type, void *data, size_t step=AUTO_STEP)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用Size指定图像大小,不创建图像数据所需的内存,直接使用data所指的内存,图像的步长由setp决定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat::Mat(Size size, int type, void *data, size_t step=AUTO_SETP)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图像ＲＯＩ</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat::Mat(const Mat &amp;m, const Rect &amp;roi)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图像ＲＯＩ</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat::Mat(const Mat &amp;m, const Range&amp; rowRange, const Range&amp; colRange)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="常用的成员函数"><a href="#常用的成员函数" class="headerlink" title="常用的成员函数"></a>常用的成员函数</h1><p>OpenCV中有非常多的成员函数，基本能够满足大多数用户的使用，下面我们就来介绍一些常用的函数，以及他们的用法，如果想了解更加细致的解释，建议参考<a href="https://docs.opencv.org/master/d9/df8/tutorial_root.html" target="_blank" rel="noopener">Opencv官方网站</a></p>
+<h2 id="Mat-Create"><a href="#Mat-Create" class="headerlink" title="Mat::Create"></a>Mat::Create</h2><p>创建新的矩阵数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void Mat::create(int rows, int cols, int type)</span><br><span class="line">void Mat::create(Size size, int type)</span><br><span class="line">void Mat::create(int ndims, const int* sizes, inttype)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>rows-新的行数<br>cols-新的列数<br>size-替代新矩阵的大小规格<br>sizes-指定一个新的矩阵形状的整数数组<br>rype-新矩阵的类型<br>ndims-新数组的维数</p>
+</blockquote>
+<h2 id="Mat-resize"><a href="#Mat-resize" class="headerlink" title="Mat::resize"></a>Mat::resize</h2><p>重新分配图像大小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void Mat::resize(size_t sz)</span><br><span class="line">void Mat::resize(size_t sz, const Scalar &amp;s)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>sz-新的行数<br>s-分配新添加的元素的值</p>
+</blockquote>
+<h2 id="Mat-adjustROI"><a href="#Mat-adjustROI" class="headerlink" title="Mat::adjustROI"></a>Mat::adjustROI</h2><p>调整子矩阵大小及其在父矩阵中的位置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mat &amp;Mat::adjustROI(int dtop, int dbottom, int dleft, int dright)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>dtop-顶部子矩阵向上的平移量<br>dbottom-底部子矩阵边界向下的平移量<br>dleft-左边子矩阵边界向左的平移量<br>dright-右边子矩阵向右的平移量</p>
+</blockquote>
+<h2 id="Mat-total"><a href="#Mat-total" class="headerlink" title="Mat::total"></a>Mat::total</h2><p>返回数组元素的总数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">size_t Mat::total() const</span><br></pre></td></tr></table></figure></p>
+<h2 id="Mat-isContinuous"><a href="#Mat-isContinuous" class="headerlink" title="Mat::isContinuous"></a>Mat::isContinuous</h2><p>判断矩阵是否连续<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool Mat::isContinuous() const</span><br></pre></td></tr></table></figure></p>
+<h2 id="Mat-elemSize"><a href="#Mat-elemSize" class="headerlink" title="Mat::elemSize"></a>Mat::elemSize</h2><p>返回矩阵元素的大小(以字节为单位)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">size_t Mat::elemSize() const</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>该方法返回以字节为单位的矩阵元素通道大小，例如：<br>如果矩阵的类型是CV_16SC，该方法返回3*sizeof(short)或者６．</p>
+</blockquote>
+<h2 id="Mat-depth"><a href="#Mat-depth" class="headerlink" title="Mat::depth"></a>Mat::depth</h2><p>返回一个矩阵的深度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int Mat::depth() const</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>该方法返回矩阵元素深度（每个单独通道类型）：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">取值范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CV_8U</td>
+<td style="text-align:center">8位无符号整数</td>
+<td style="text-align:center">0…..255</td>
+</tr>
+<tr>
+<td style="text-align:center">CV_8S</td>
+<td style="text-align:center">8位符号整数</td>
+<td style="text-align:center">-128…..127</td>
+</tr>
+<tr>
+<td style="text-align:center">CV16_U</td>
+<td style="text-align:center">16位无符号整数</td>
+<td style="text-align:center">0….65535</td>
+</tr>
+<tr>
+<td style="text-align:center">CV16_S</td>
+<td style="text-align:center">16位符号整数</td>
+<td style="text-align:center">-32768….32767</td>
+</tr>
+<tr>
+<td style="text-align:center">CV32_S</td>
+<td style="text-align:center">32位符号整数</td>
+<td style="text-align:center">-21473648….21473647</td>
+</tr>
+<tr>
+<td style="text-align:center">CV32_F</td>
+<td style="text-align:center">32位浮点数</td>
+<td style="text-align:center">-FLT_MAX….FLT_MAX</td>
+</tr>
+<tr>
+<td style="text-align:center">CV64_F</td>
+<td style="text-align:center">64浮点数</td>
+<td style="text-align:center">-DBL_MAX….DBL_MAX</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Mat-channels"><a href="#Mat-channels" class="headerlink" title="Mat::channels"></a>Mat::channels</h2><p>返回矩阵通道的数目<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int Mat::channels() const</span><br></pre></td></tr></table></figure></p>
+<h2 id="Mat-setp1"><a href="#Mat-setp1" class="headerlink" title="Mat::setp1"></a>Mat::setp1</h2><p>返回矩阵归一化迈出的一步<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">size_t const Mat::setp1()</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>该方法返回以矩阵setp除以Mat::elemSize1().他对快速访问矩阵元素很有用</p>
+</blockquote>
+<h2 id="Mat-size"><a href="#Mat-size" class="headerlink" title="Mat::size"></a>Mat::size</h2><p>返回一个矩阵的大小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Size Mat::size() const</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>该方法返回一个矩阵的大小：Size(cols, rows)，若据很超过二维则返回(-1, -1)</p>
+</blockquote>
+<h2 id="Mat-empty"><a href="#Mat-empty" class="headerlink" title="Mat::empty"></a>Mat::empty</h2><p>如果数组没有elemens，则返回true，常用于判断图片是否被读取<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool Mat::empty()</span><br></pre></td></tr></table></figure></p>
+<h2 id="Mat-ptr"><a href="#Mat-ptr" class="headerlink" title="Mat::ptr"></a>Mat::ptr</h2><p>返回指定矩阵行的指针<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">uchar *Mat::ptr(int i=0)</span><br><span class="line">uconst uchar* Mat::ptr(int i=0) const</span><br><span class="line">template&lt;typename _Tp&gt; _Tp* Mat::ptr(int i=0)</span><br><span class="line">template&lt;typename _Tp&gt; const _Tp* Mat::ptr(int i=0) const</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>i-一个基于０行的索引</p>
+</blockquote>
+<h2 id="Mat-at"><a href="#Mat-at" class="headerlink" title="Mat::at"></a>Mat::at</h2><p>返回指定数组元素的引用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">template&lt;typename T&gt; T&amp; Mat::at(int i) const</span><br><span class="line">template&lt;typename T&gt; const T&amp;Mat::at(int i) const</span><br><span class="line">template&lt;typename T&gt; T&amp; Mat::at(int i, int j) const</span><br><span class="line">template&lt;typename T&gt; const T&amp;Mat::at(int i, int j) const</span><br><span class="line">template&lt;typename T&gt; T&amp; Mat::at(Pointpt)</span><br><span class="line">template&lt;typename T&gt; const T&amp;Mat::at(Point pt) const</span><br><span class="line">template&lt;typename T&gt; T&amp;Mat::at(int i, int j, int k)</span><br><span class="line">template&lt;typename T&gt; const T&amp;Mat::at(int i, int j, int k) const</span><br><span class="line">template&lt;typename T&gt; T&amp;Mat::at(constint* idx)</span><br><span class="line">template&lt;typename T&gt; constT&amp;Mat::at(const int* idx) const</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>i-0维度索引<br>j-1唯独索引<br>k-2维度索引<br>pt-Point(i,j)作为指定元素的位置<br>idx-Mat::dims数组的索引</p>
+</blockquote>
+<h2 id="Mat-begin"><a href="#Mat-begin" class="headerlink" title="Mat::begin"></a>Mat::begin</h2><p>返回矩阵迭代器，并设置为第一矩阵元<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">template&lt;typename _Tp&gt;MatIterator_&lt;_Tp&gt; Mat::begin()</span><br><span class="line">template&lt;typename _Tp&gt;MatConstIterator_&lt;_Tp&gt; Mat::begin() const</span><br></pre></td></tr></table></figure></p>
+<h2 id="Mat-end"><a href="#Mat-end" class="headerlink" title="Mat::end"></a>Mat::end</h2><p>返回矩阵迭代器，并将其设置为最后元素的矩阵单元．<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">template&lt;typename _Tp&gt;MatIterator_&lt;_Tp&gt; Mat::end()</span><br><span class="line">template&lt;typename _Tp&gt;MatConstIterator_&lt;_Tp&gt; Mat::end() const</span><br></pre></td></tr></table></figure></p>
+<h1 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h1><p>有时在进行面试的时候，面试官提出一些有关编程方面的问题，让我们不许使用Opencv的Mat类．通常会提出数据类型转换问题,下面我们就此开始.</p>
+<h2 id="Mat与数组之间互相转换"><a href="#Mat与数组之间互相转换" class="headerlink" title="Mat与数组之间互相转换"></a>Mat与数组之间互相转换</h2><p><strong>数组转Mat</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unsigned char buff[height][width];</span><br><span class="line">cv::Mat img(height, width, CV_8UC1, (unsigned char*)buff);</span><br></pre></td></tr></table></figure></p>
+<p><strong>Mat转数组</strong></p>
+<ol>
+<li><p>将Mat中的内容传递给数组，如果Mat中的数据是连续的，那么我们传递到一维vector我们可以这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;uchar&gt; array(mat.total());</span><br><span class="line">if(mat.isContinuous())&#123;</span><br><span class="line">	array = mat.data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>同样的，传递到一维数组我们可以：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">unsigned char *arry = new unsigned char[mat.total()];</span><br><span class="line">if(mat.isContinuous())&#123;</span><br><span class="line">	array = mat.data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于二维度vector传值:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">uchar **array = new uchar*[mat.rows];</span><br><span class="line">for(int i = 0; i &lt; mat.rows; ++i)&#123;</span><br><span class="line">	array[i] = new uchar[mat.cols];</span><br><span class="line">&#125;</span><br><span class="line">for(int i = 0; i &lt; mat.rows; ++i)&#123;</span><br><span class="line">	array[i] = mat.ptr&lt;uchar&gt;(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Mat与vector互相转换"><a href="#Mat与vector互相转换" class="headerlink" title="Mat与vector互相转换"></a>Mat与vector互相转换</h2><ol>
+<li><p>Mat转vector</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">template&lt;typename _Tp&gt;</span><br><span class="line">vector&lt;_Tp&gt; convertMat2Vector(const Mat &amp;mat)</span><br><span class="line">&#123;</span><br><span class="line">	return (vector&lt;_Tp&gt;)(mat.reshape(1, 1)); //通道数不变，按行转为一行</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>vector转Mat</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">template&lt;typename _Tp&gt;</span><br><span class="line">cv::Mat convertVector2Mat(vector&lt;_Tp&gt; v, int channels, int rows)</span><br><span class="line">&#123;</span><br><span class="line">	cv::Mat mat = cv::Mat(v);</span><br><span class="line">	cv::Mat dest = mat.reshape(channels, rows).clone();　//必须clone一份，否则出现错误</span><br><span class="line">	return dest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="https://link.hhtjim.com/163/31134621.mp3">
+            </audio>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="80462b0ab4b32ebdcfc4" data-cs="28aceed13b977f60d2728b5c85b3cf7160e272ca" data-r="RainBowAurora.github.io" data-o="RainBowAurora" data-a="RainBowAurora" data-d="false">查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#起源"><span class="toc-number">1.</span> <span class="toc-text">起源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#构造函数"><span class="toc-number">2.</span> <span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用的成员函数"><span class="toc-number">3.</span> <span class="toc-text">常用的成员函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-Create"><span class="toc-number">3.1.</span> <span class="toc-text">Mat::Create</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-resize"><span class="toc-number">3.2.</span> <span class="toc-text">Mat::resize</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-adjustROI"><span class="toc-number">3.3.</span> <span class="toc-text">Mat::adjustROI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-total"><span class="toc-number">3.4.</span> <span class="toc-text">Mat::total</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-isContinuous"><span class="toc-number">3.5.</span> <span class="toc-text">Mat::isContinuous</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-elemSize"><span class="toc-number">3.6.</span> <span class="toc-text">Mat::elemSize</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-depth"><span class="toc-number">3.7.</span> <span class="toc-text">Mat::depth</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-channels"><span class="toc-number">3.8.</span> <span class="toc-text">Mat::channels</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-setp1"><span class="toc-number">3.9.</span> <span class="toc-text">Mat::setp1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-size"><span class="toc-number">3.10.</span> <span class="toc-text">Mat::size</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-empty"><span class="toc-number">3.11.</span> <span class="toc-text">Mat::empty</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-ptr"><span class="toc-number">3.12.</span> <span class="toc-text">Mat::ptr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-at"><span class="toc-number">3.13.</span> <span class="toc-text">Mat::at</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-begin"><span class="toc-number">3.14.</span> <span class="toc-text">Mat::begin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat-end"><span class="toc-number">3.15.</span> <span class="toc-text">Mat::end</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#拓展"><span class="toc-number">4.</span> <span class="toc-text">拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat与数组之间互相转换"><span class="toc-number">4.1.</span> <span class="toc-text">Mat与数组之间互相转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mat与vector互相转换"><span class="toc-number">4.2.</span> <span class="toc-text">Mat与vector互相转换</span></a></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

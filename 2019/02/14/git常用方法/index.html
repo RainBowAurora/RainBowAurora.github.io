@@ -11,8 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="基本操作初始化下载1$ sudo apt-get install git
-设置12$ git config --global user.name &amp;quot;your name&amp;quot;$ git,"> 
+    <meta name="description" content="起源OpenCV作为一个强大的开源计算机库,从早期的OpenCV1.x版本中,图像处理是通过lplimage(该名称源于另一个开源库Intel image Processing Library)结构,"> 
     <meta name="author" content="John Doe"> 
     <link rel="alternative" href="atom.xml" title="RainBow" type="application/atom+xml"> 
     <link rel="icon" href="/img/rainbowico.png"> 
@@ -64,8 +63,28 @@
 <p><code>git status -s</code>：用来查看当前仓库状态信息的简写：<br>M-被修改、A-被添加、D-被删除、R-重命名、??-未跟踪</p>
 </blockquote>
 </li>
-<li><p><code>git add</code>: 添加文件到暂存区。</p>
+<li><code>git add</code>: 添加文件到暂存区。<blockquote>
+<p>如果工作区有我们你不想提交的文件可以设置忽略项，设置忽略项我们通常都是在<code>.gitignore</code>文件中设置，比如我们在要忽略grabage目录下的所有文件，我们只需：</p>
+<blockquote>
+<ol>
+<li>在工作目录下新建一个名为<code>.gitignore</code>的文件</li>
+<li>将我们要忽略的目录写入到文件当中，<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ touch .gitignore</span><br><span class="line">$ cat .gitignore</span><br><span class="line">/grabage/*</span><br></pre></td></tr></table></figure>
 </li>
+</ol>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>如果被排除目录下还有我们想要提交的文件，有两种方法：</p>
+<blockquote>
+<ol>
+<li>在.gitignore文件中添加排除项</li>
+<li>在提交时候使用<code>git add -f &lt;file path&gt;</code></li>
+</ol>
+</blockquote>
+</blockquote>
+<ul>
 <li><p><code>git commit -m &quot;注释&quot;</code>： 将暂存区的的修改提交到版本库。</p>
 <blockquote>
 <p>如果发现上一个注释写错，需要进行修改和追加，可以使用：</p>
