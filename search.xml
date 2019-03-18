@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[图像处理面试题]]></title>
+    <url>%2F2019%2F03%2F18%2F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E9%9D%A2%E8%AF%95%E9%A2%98%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>工作面试</category>
+      </categories>
+      <tags>
+        <tag>图像处理</tag>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[02 OpenCV-SVM]]></title>
     <url>%2F2019%2F02%2F27%2F02-OpenCV-SVM%2F</url>
     <content type="text"><![CDATA[分析需求 研发 测试 字体改成蓝色了 sdfsdfsf]]></content>
