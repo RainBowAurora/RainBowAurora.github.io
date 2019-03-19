@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[图像处理面试题]]></title>
-    <url>%2F2019%2F03%2F18%2F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E9%9D%A2%E8%AF%95%E9%A2%98%2F</url>
-    <content type="text"></content>
-      <categories>
-        <category>工作面试</category>
-      </categories>
+    <title><![CDATA[图像处理基础算法]]></title>
+    <url>%2F2019%2F03%2F19%2F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[Opencv的Mat数据转换 Mat -&gt; Vector vector -&gt; MatMat -&gt; Vector要将mat转换为vector可以借助opencv官方API将图像转换为行存入vector中．1Mat cv::Mat::reshape(int cn, int rows = 0) cons 功能:在不复制数据的情况下更改二维矩阵的形状和通道数目．参数: cn 新的通道数，如果参数为0，则通道数保持不变． rows 新的行数，如果参数为0，则通道数保持不变. 12345template&lt;typename _Tp&gt;vector&lt;_Tp&gt; Mat2vector(const Mat &amp;mat)&#123; return (vector&lt;_Tp&gt;)(mat.reshape(1, 1));&#125; vector -&gt; MatMat构造函数可以将vector转换为一维Mat，之后可以使用上述的Mat::reshape将一维度数组转换成二维图像数组．1cv::Mat::Mat(const std::vector&lt; _Tp &gt; &amp;vec,bool copyData = false) 功能:根据vector向量生成Mat,生成的Mat有一列，行数和元素个数相同.参数: vec vector类型的向量 copyData (true)是否将vector中的数据复制，(false)或与vector共享数据. 123456template&lt;typename _Tp&gt;cv::Mat vector2Mat(vector&lt;_Tp&gt; vec, int channels, int rows)&#123; cv::Mat mat = cv::Mat(v, ture); return mat;&#125;]]></content>
       <tags>
-        <tag>图像处理</tag>
-        <tag>面试</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
