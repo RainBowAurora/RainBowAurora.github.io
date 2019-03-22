@@ -131,6 +131,7 @@ Mat -&amp;gt;,">
 </li>
 <li><code>git checkout -- &lt;file&gt;</code>: 可以丢弃工作区的修改。</li>
 <li><code>git reset HEAD &lt;file&gt;</code>: 可以把暂存区的修改撤销,重新放回工作区。</li>
+<li><code>git commit -m --amend</code>: 撤销上一次提交，并将暂存区文件重新提交</li>
 </ul>
 <h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><ul>
 <li><code>git rm &lt;file&gt;</code>: 删除文件。</li>
@@ -197,7 +198,10 @@ Mat -&amp;gt;,">
 </li>
 <li><p><code>git push origin &lt;branch name&gt;</code>: 将分支推送到远程仓库</p>
 </li>
-<li><p><code>git push origin -delete &lt;branch name&gt;</code>: 删除远程分支。</p>
+<li><p><code>git push origin --delete &lt;branch name&gt;</code>: 删除远程分支。</p>
+<blockquote>
+<p>有时先删除本地的分支，然后在删除远程的分支，造成远程服务器内容和本地不相符，会报以下错误:<br>error: unable to delete ‘origin/dev2’: remote ref does not exist`<br>这时需要先从远程服务器拉去文件，然后在提出修改/删除:<br>git pull origin <branch></branch></p>
+</blockquote>
 </li>
 </ul>
 <h2 id="tag标签管理"><a href="#tag标签管理" class="headerlink" title="tag标签管理"></a>tag标签管理</h2><p>Tag用于记录某个commit点或者分支的历史快照，Tag通常打在Master分支上，以保证代码的准确性。</p>
