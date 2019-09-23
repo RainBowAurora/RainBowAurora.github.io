@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RainBow</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="Ａ*寻路算法A*搜索算法，俗称Ａ星算法，作为启发式搜错算法中的一种，这是一种在图形平面上，有多个节点路径，求出最低通过成本的算法．长用于游戏中的NPC的移动计算，或线上游戏BOT的移动计算上．该算法,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="RainBow" type="application/atom+xml"> 
+    <link rel="icon" href="/img/rainbowico.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+</head>
+</html>
+<body class="loading">
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">[PathPlanning]AStar.md</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">[PathPlanning]AStar.md</h1>
+        <div class="stuff">
+            <span>九月 23, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Planning/">Planning</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="A-寻路算法"><a href="#A-寻路算法" class="headerlink" title="Ａ*寻路算法"></a>Ａ*寻路算法</h1><p>A*搜索算法，俗称Ａ星算法，作为启发式搜错算法中的一种，这是一种在图形平面上，有多个节点路径，求出最低通过成本的算法．长用于游戏中的NPC的移动计算，或线上游戏BOT的移动计算上．该算法想Dijkstar算法一样，可以找到最短路径,也像BFS一样，进行启发式搜索．<br><img src="/img/planner/animation.gif" alt="AStar"></p>
+<h2 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h2><ol>
+<li>计算路径时主要利用一个公式来筛选最优路径点:<br><strong><code>f(n) = g(n) + h(n)</code></strong><blockquote>
+<p>其中:</p>
+<ul>
+<li><code>fn(n)</code>是节点n的综合优先，我们根据这个值的大小(一般选取最小)来判断该点是否是最优(最短)路径上的点,最终的路径就是有一系列最小点所组成的．</li>
+<li><code>g(n)</code>是节点n距离起点的代价.</li>
+<li><code>h(n)</code>是节点n距离终点的预计代价,这也就是A*算法的启发函数.</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<p>A*算法计算过程中，每次从优先队列中选取f(n)优先级最高(值最小)的节点作为下一个待遍历的点(有点贪心算法的思想).另外Ａ*算法使用两个集合来表示待遍历的点以及已经遍历过的点,通常称之为<code>open_set</code>和<code>close_set</code>.</p>
+<ol start="2">
+<li><p>完整的Ａ*算法描述如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">* 初始化open_set和close_set;</span><br><span class="line">* 将起点加入open_set中，并设置优先级为0(优先级最高)</span><br><span class="line">* 如果open_set不为空,则从open_set中选取优先级最高的节点n:</span><br><span class="line">    * 如果节点n为终点,则：</span><br><span class="line">        * 从终点开始逐步跟踪parent节点,一直到达起点;</span><br><span class="line">        * 返回找到的结果路径,算法结束;</span><br><span class="line">    * 如果节点n不是终点,则:</span><br><span class="line">        * 将节点n从open_set中删除,并加入close_set中;</span><br><span class="line">        * 遍历节点n所有的临近点：</span><br><span class="line">            *如果临近点m在close_set中，则：</span><br><span class="line">                * 跳过选取下一个临近点</span><br><span class="line">            * 如果临近节点m也不在open_set中，则:</span><br><span class="line">                * 设置节点m的parent为节点n</span><br><span class="line">                * 计算节点m的优先级</span><br><span class="line">                * 将节点m加入open_set中</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启发函数<br>启发函数会影响A*算法的行为.</p>
+</li>
+</ol>
+<ul>
+<li>在极端情况下,当启发函数f(n)始终为0,则将由g(n)决定节点的优先级，此时算法退化成Dijkstara算法.</li>
+<li>如果h(n)始终小于等于节点n到终点的代价,则Ａ*算法保证一定能够到最短路径．但是当h(n)的值越小，算法遍历越多的节点,也就导致算法越慢.</li>
+<li>如果h(n)完全等于n节点到终点的代价,则Ａ*算法将找到最佳路径，并且速度很快,可惜的是,并非所有场景下都能做到这一点,因为在没有到达终点之前，我们很难确确切算出距离终点还有多远.</li>
+<li>如果h(n)的值比节点n到终点的代价还要大,则A*算法不能保证找到最短路径.</li>
+<li>在另外一个极端情况下,如果h(n)相较于g(n)大很多,则此时只有h(n)产生效果,这也就变成了最佳优先搜索.</li>
+</ul>
+<p>由于上面这些信息，我们可以知道通过调节启发函数我们可以控制算法的速度和精确度,因为在一些情况,我们可能未必需要最短路径,而是希望能够尽快找到一个路径即可，这也是Ａ*算法比较灵活的地方．</p>
+<ol start="4">
+<li>对于网格形式的图，有一下这些启发函数可以使用:</li>
+</ol>
+<ul>
+<li>如果图形中只允许朝上下左右四个方向移动，则可以使用曼哈顿距离(Manhattan distance)</li>
+<li>如果图形中允许朝八个方向移动，则可以使用对角距离.</li>
+<li>如果图形中允许朝着任何方向移动，则可以使用欧几里得距离(Euclidean distance)</li>
+</ul>
+<h2 id="距离度量"><a href="#距离度量" class="headerlink" title="距离度量"></a>距离度量</h2><ol>
+<li><p>曼哈顿距离<br>如果图形中只允许朝上下左右四个方向移动，则启发函数可以使用曼哈顿距离:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function heuristic(node) =</span><br><span class="line">    dx = abs(node.x - goal.x)</span><br><span class="line">    dy = abs(node.y - goal.y)</span><br><span class="line">    return D * (dx + dy)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对角距离<br>如果允许朝八个方向移动，使用对角距离,其中D2指的是两个斜着相邻节点之间的移动代价，如果所有节点都是正方形其值为<code>2^1/2 * D</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function heuristic(node) = </span><br><span class="line">    dx = abs(node.x - goal.x)</span><br><span class="line">    dy = abs(node.y - goal.y)</span><br><span class="line">    return D * (dx + dy) + (D2 - 2*d) * min(dx, dy)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>欧几里德距离<br>如果图形中允许朝任意方向移动，可以使用欧几里德距离:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function heuristic(node) = </span><br><span class="line">    dx = abs(node.x - goal.x)</span><br><span class="line">    dy = abs(node.y - goal.y)</span><br><span class="line">    return D * sqrt(dx * dx + dy * dy)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h2 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h2><blockquote>
+<p>这里所使用的代码是由<a href="https://github.com/AtsushiSakai/PythonRobotics/tree/master/PathPlanning/AStarhttps://github.com/AtsushiSakai/PythonRobotics#what-is-this" target="_blank" rel="noopener">AtsushiSakai</a>所编写的(尊重原创)</p>
+</blockquote>
+<h3 id="坐标点与地图"><a href="#坐标点与地图" class="headerlink" title="坐标点与地图"></a>坐标点与地图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">def main():</span><br><span class="line">    print(__file__ + &quot; start!!&quot;)</span><br><span class="line"></span><br><span class="line">    # start and goal position</span><br><span class="line">    sx = 10.0  # 起始点的x坐标[m]</span><br><span class="line">    sy = 10.0  # 起始点的y坐标[m]</span><br><span class="line">    gx = 50.0  # 终止点的x坐标[m]</span><br><span class="line">    gy = 50.0  # 终止点的y坐标[m]</span><br><span class="line">    grid_size = 2.0  # 离散点间隔大小[m]</span><br><span class="line">    robot_radius = 1.0  # 机器人半径用于碰撞检测[m]</span><br><span class="line"></span><br><span class="line">    # set obstable positions 设置地图</span><br><span class="line">    ox, oy = [], []</span><br><span class="line">    for i in range(-10, 60):</span><br><span class="line">        ox.append(i)</span><br><span class="line">        oy.append(-10.0)</span><br><span class="line">    for i in range(-10, 60):</span><br><span class="line">        ox.append(60.0)</span><br><span class="line">        oy.append(i)</span><br><span class="line">    for i in range(-10, 61):</span><br><span class="line">        ox.append(i)</span><br><span class="line">        oy.append(60.0)</span><br><span class="line">    for i in range(-10, 61):</span><br><span class="line">        ox.append(-10.0)</span><br><span class="line">        oy.append(i)</span><br><span class="line">    #设置障碍物</span><br><span class="line">    for i in range(-10, 40):</span><br><span class="line">        ox.append(20.0)</span><br><span class="line">        oy.append(i)</span><br><span class="line">    for i in range(0, 40):</span><br><span class="line">        ox.append(40.0)</span><br><span class="line">        oy.append(60.0 - i)</span><br><span class="line"></span><br><span class="line">    if show_animation:  # pragma: no cover 显示迷宫</span><br><span class="line">        plt.plot(ox, oy, &quot;.k&quot;)</span><br><span class="line">        plt.plot(sx, sy, &quot;og&quot;)</span><br><span class="line">        plt.plot(gx, gy, &quot;xb&quot;)</span><br><span class="line">        plt.grid(True)</span><br><span class="line">        plt.axis(&quot;equal&quot;)</span><br><span class="line"></span><br><span class="line">    #创建 a_star类</span><br><span class="line">    a_star = AStarPlanner(ox, oy, grid_size, robot_radius)</span><br><span class="line">    #启用路径规划</span><br><span class="line">    rx, ry = a_star.planning(sx, sy, gx, gy)</span><br><span class="line">    #显示使用Ａ*规划出来的路径</span><br><span class="line">    if show_animation:  # pragma: no cover</span><br><span class="line">        plt.plot(rx, ry, &quot;-r&quot;)</span><br></pre></td></tr></table></figure>
+<p>这段代码说明如下:</p>
+<ol>
+<li>首先人为初始化起点[10, 10]和终点[50, 50]</li>
+<li>设置地图大小x(-10…60) y(-10…60)的正方形</li>
+<li>设置地图中的障碍物</li>
+<li>创建astar类调用规划算法<h3 id="算法主体"><a href="#算法主体" class="headerlink" title="算法主体"></a>算法主体</h3>算法主体是一个类封装的一系列函数:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br></pre></td><td class="code"><pre><span class="line">class AStarPlanner:</span><br><span class="line"></span><br><span class="line">    def __init__(self, ox, oy, reso, rr):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Initialize grid map for a star planning</span><br><span class="line">        ox: x position list of Obstacles [m]</span><br><span class="line">        oy: y position list of Obstacles [m]</span><br><span class="line">        reso: grid resolution [m]</span><br><span class="line">        rr: robot radius[m]</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">        self.reso = reso</span><br><span class="line">        self.rr = rr</span><br><span class="line">        self.calc_obstacle_map(ox, oy)</span><br><span class="line">        self.motion = self.get_motion_model()</span><br><span class="line"></span><br><span class="line">    class Node:</span><br><span class="line">        def __init__(self, x, y, cost, pind):</span><br><span class="line">            self.x = x  # index of grid</span><br><span class="line">            self.y = y  # index of grid</span><br><span class="line">            self.cost = cost</span><br><span class="line">            self.pind = pind</span><br><span class="line"></span><br><span class="line">        def __str__(self):</span><br><span class="line">            return str(self.x) + &quot;,&quot; + str(self.y) + &quot;,&quot; + str(self.cost) + &quot;,&quot; + str(self.pind)</span><br><span class="line"></span><br><span class="line">    def planning(self, sx, sy, gx, gy):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        A star path search</span><br><span class="line">        input:</span><br><span class="line">            sx: start x position [m]</span><br><span class="line">            sy: start y position [m]</span><br><span class="line">            gx: goal x position [m]</span><br><span class="line">            gx: goal x position [m]</span><br><span class="line">        output:</span><br><span class="line">            rx: x position list of the final path</span><br><span class="line">            ry: y position list of the final path</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        #将起点节点初始化</span><br><span class="line">        nstart = self.Node(self.calc_xyindex(sx, self.minx),</span><br><span class="line">                           self.calc_xyindex(sy, self.miny), 0.0, -1)</span><br><span class="line">        #终点节点初始化</span><br><span class="line">        ngoal = self.Node(self.calc_xyindex(gx, self.minx),</span><br><span class="line">                          self.calc_xyindex(gy, self.miny), 0.0, -1)</span><br><span class="line"></span><br><span class="line">        open_set, closed_set = dict(), dict()</span><br><span class="line">        open_set[self.calc_grid_index(nstart)] = nstart</span><br><span class="line"></span><br><span class="line">        while 1:</span><br><span class="line">            if len(open_set) == 0:</span><br><span class="line">                print(&quot;Open set is empty..&quot;)</span><br><span class="line">                break</span><br><span class="line">            #使用lambda函数找出最小的f(n)对应的索引</span><br><span class="line">            c_id = min(</span><br><span class="line">                open_set, key=lambda o: open_set[o].cost + self.calc_heuristic(ngoal, open_set[o]))</span><br><span class="line">            current = open_set[c_id]</span><br><span class="line"></span><br><span class="line">            # show graph</span><br><span class="line">            if show_animation:  # pragma: no cover</span><br><span class="line">                plt.plot(self.calc_grid_position(current.x, self.minx),</span><br><span class="line">                         self.calc_grid_position(current.y, self.miny), &quot;xc&quot;)</span><br><span class="line">                if len(closed_set.keys()) % 10 == 0:</span><br><span class="line">                    plt.pause(0.001) #等待0.001s</span><br><span class="line"></span><br><span class="line">            #如果找到最终点则停止搜索</span><br><span class="line">            if current.x == ngoal.x and current.y == ngoal.y:</span><br><span class="line">                print(&quot;Find goal&quot;)</span><br><span class="line">                ngoal.pind = current.pind</span><br><span class="line">                ngoal.cost = current.cost</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">            # Remove the item from the open set</span><br><span class="line">            del open_set[c_id]</span><br><span class="line"></span><br><span class="line">            # Add it to the closed set</span><br><span class="line">            closed_set[c_id] = current</span><br><span class="line"></span><br><span class="line">            # expand_grid search grid based on motion model计算f(n)</span><br><span class="line">            for i, _ in enumerate(self.motion):</span><br><span class="line">                node = self.Node(current.x + self.motion[i][0],</span><br><span class="line">                                 current.y + self.motion[i][1],</span><br><span class="line">                                 current.cost + self.motion[i][2], c_id)</span><br><span class="line">                #计算索引</span><br><span class="line">                n_id = self.calc_grid_index(node)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                # If the node is not safe, do nothing　判断节点是否安全</span><br><span class="line">                if not self.verify_node(node):</span><br><span class="line">                    continue</span><br><span class="line">                # 如果节点被筛选过则跳过</span><br><span class="line">                if n_id in closed_set:</span><br><span class="line">                    continue</span><br><span class="line">                #如果节点不再open_set中则将节点放入open_set中</span><br><span class="line">                if n_id not in open_set:</span><br><span class="line">                    open_set[n_id] = node  # discovered a new node</span><br><span class="line">                else:</span><br><span class="line">                #如果节点在open_set中，则判断该节点是否是最优点(代价最小)</span><br><span class="line">                    if open_set[n_id].cost &gt; node.cost:</span><br><span class="line">                        # This path is the best until now. record it</span><br><span class="line">                        open_set[n_id] = node</span><br><span class="line"></span><br><span class="line">        rx, ry = self.calc_final_path(ngoal, closed_set)</span><br><span class="line"></span><br><span class="line">        return rx, ry</span><br><span class="line"></span><br><span class="line">    def calc_final_path(self, ngoal, closedset):</span><br><span class="line">        # generate final course 从终点反推到起点得出路径</span><br><span class="line">        rx, ry = [self.calc_grid_position(ngoal.x, self.minx)], [</span><br><span class="line">            self.calc_grid_position(ngoal.y, self.miny)]</span><br><span class="line">        pind = ngoal.pind</span><br><span class="line">        while pind != -1:</span><br><span class="line">            n = closedset[pind]</span><br><span class="line">            rx.append(self.calc_grid_position(n.x, self.minx))</span><br><span class="line">            ry.append(self.calc_grid_position(n.y, self.miny))</span><br><span class="line">            pind = n.pind</span><br><span class="line"></span><br><span class="line">        return rx, ry</span><br><span class="line"></span><br><span class="line">    @staticmethod</span><br><span class="line">    def calc_heuristic(n1, n2):</span><br><span class="line">        w = 1.0  # weight of heuristic　</span><br><span class="line">        ＃代价函数欧式距离</span><br><span class="line">        d = w * math.sqrt((n1.x - n2.x) ** 2 + (n1.y - n2.y) ** 2)</span><br><span class="line">        return d</span><br><span class="line">    # 索引-&gt;点</span><br><span class="line">    def calc_grid_position(self, index, minp):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        calc grid position</span><br><span class="line">        :param index:</span><br><span class="line">        :param minp:</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        pos = index * self.reso + minp</span><br><span class="line">        return pos</span><br><span class="line">    #　点　-&gt;　索引</span><br><span class="line">    def calc_xyindex(self, position, min_pos):</span><br><span class="line">        return round((position - min_pos) / self.reso)</span><br><span class="line"></span><br><span class="line">    def calc_grid_index(self, node):</span><br><span class="line">        return (node.y - self.miny) * self.xwidth + (node.x - self.minx)</span><br><span class="line"></span><br><span class="line">    def verify_node(self, node):</span><br><span class="line">        px = self.calc_grid_position(node.x, self.minx)</span><br><span class="line">        py = self.calc_grid_position(node.y, self.miny)</span><br><span class="line">        #判断是否超出界限</span><br><span class="line">        if px &lt; self.minx:</span><br><span class="line">            return False</span><br><span class="line">        elif py &lt; self.miny:</span><br><span class="line">            return False</span><br><span class="line">        elif px &gt;= self.maxx:</span><br><span class="line">            return False</span><br><span class="line">        elif py &gt;= self.maxy:</span><br><span class="line">            return False</span><br><span class="line">        # collision check　判断是否是障碍</span><br><span class="line">        if self.obmap[node.x][node.y]:</span><br><span class="line">            return False</span><br><span class="line">        return True</span><br><span class="line"></span><br><span class="line">    def calc_obstacle_map(self, ox, oy):</span><br><span class="line">        #计算地图边界</span><br><span class="line">        self.minx = round(min(ox)) </span><br><span class="line">        self.miny = round(min(oy))</span><br><span class="line">        self.maxx = round(max(ox))</span><br><span class="line">        self.maxy = round(max(oy))</span><br><span class="line">        print(&quot;minx:&quot;, self.minx)</span><br><span class="line">        print(&quot;miny:&quot;, self.miny)</span><br><span class="line">        print(&quot;maxx:&quot;, self.maxx)</span><br><span class="line">        print(&quot;maxy:&quot;, self.maxy)</span><br><span class="line"></span><br><span class="line">        #　计算地图宽度</span><br><span class="line">        self.xwidth = round((self.maxx - self.minx) / self.reso)</span><br><span class="line">        self.ywidth = round((self.maxy - self.miny) / self.reso)</span><br><span class="line">        print(&quot;xwidth:&quot;, self.xwidth)</span><br><span class="line">        print(&quot;ywidth:&quot;, self.ywidth)</span><br><span class="line"></span><br><span class="line">        # obstacle map generation</span><br><span class="line">        self.obmap = [[False for i in range(self.ywidth)]</span><br><span class="line">                      for i in range(self.xwidth)]</span><br><span class="line">        for ix in range(self.xwidth):</span><br><span class="line">            x = self.calc_grid_position(ix, self.minx)</span><br><span class="line">            for iy in range(self.ywidth):</span><br><span class="line">                y = self.calc_grid_position(iy, self.miny)</span><br><span class="line">                for iox, ioy in zip(ox, oy):</span><br><span class="line">                    d = math.sqrt((iox - x) ** 2 + (ioy - y) ** 2)</span><br><span class="line">                    if d &lt;= self.rr:</span><br><span class="line">                        self.obmap[ix][iy] = True</span><br><span class="line">                        break</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    (-1,-1)[2*2/1]  (0,-1)[1]   (1, -1)[2*2/1]</span><br><span class="line">    (-1, 0)[１]     (0,0)[0]    (1,0)[1]</span><br><span class="line">    (-1, 1)[2*2/1]  (0,1)[1]    (1,1)[2*2/1]</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    @staticmethod</span><br><span class="line">    def get_motion_model():</span><br><span class="line">        # dx, dy, cost</span><br><span class="line">        motion = [[1, 0, 1],</span><br><span class="line">                  [0, 1, 1],</span><br><span class="line">                  [-1, 0, 1],</span><br><span class="line">                  [0, -1, 1],</span><br><span class="line">                  [-1, -1, math.sqrt(2)],</span><br><span class="line">                  [-1, 1, math.sqrt(2)],</span><br><span class="line">                  [1, -1, math.sqrt(2)],</span><br><span class="line">                  [1, 1, math.sqrt(2)]]</span><br><span class="line"></span><br><span class="line">        return motion</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这段代码说明如下:</p>
+<ol>
+<li><code>__init__</code>: 类构造函数,他需要<code>ox</code>(起始点x坐标), <code>oy</code>(起始点y坐标), <code>reso</code>(离散点的间隔大小), <code>rr</code>(机器人半径)等参数</li>
+<li><code>__str__</code>: 打印类中的具体属性</li>
+<li><code>planning</code>: 规划函数,可以规划出一条从起点到终点的最短路径，其接受四个参数<code>sx</code>(起始点x坐标), <code>sy</code>(起始点y坐标), <code>gx</code>(终点x坐标), <code>gy</code>(终点y坐标)　返回从起点到终点的路径点</li>
+<li><code>calc_final_path</code>: 生成最终轨迹, <code>ngoal</code>(终点索引和代价), <code>colse_set</code>(检索过点的集合)</li>
+<li><code>calc_heuristic</code>: 启发函数采用欧几里德距离,输入两个点计算完成之后返回距离</li>
+<li><code>calc_grid_position</code>: 计算网格位置</li>
+<li><code>calc_xyindex</code>:　计算点x,y坐标索引</li>
+<li><code>calc_grid_index</code>:　计算栅格索引</li>
+<li><code>verify_node</code>:　检验输入的节点是否合法</li>
+<li><code>calc_obstacle_map</code>:　障碍地图生成</li>
+<li><code>get_motion_model</code>:　静态方法，用于制定g(n)的规则</li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="https://link.hhtjim.com/163/18782895.mp3">
+            </audio>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="80462b0ab4b32ebdcfc4" data-cs="28aceed13b977f60d2728b5c85b3cf7160e272ca" data-r="RainBowAurora.github.io" data-o="RainBowAurora" data-a="RainBowAurora" data-d="false">查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#A-寻路算法"><span class="toc-number">1.</span> <span class="toc-text">Ａ*寻路算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法思路"><span class="toc-number">1.1.</span> <span class="toc-text">算法思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#距离度量"><span class="toc-number">1.2.</span> <span class="toc-text">距离度量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流程"><span class="toc-number">1.3.</span> <span class="toc-text">流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码分析"><span class="toc-number">1.4.</span> <span class="toc-text">代码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#坐标点与地图"><span class="toc-number">1.4.1.</span> <span class="toc-text">坐标点与地图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法主体"><span class="toc-number">1.4.2.</span> <span class="toc-text">算法主体</span></a></li></ol></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
