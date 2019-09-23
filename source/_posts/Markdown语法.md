@@ -87,7 +87,9 @@ Makedown是一种标记语言，大多数人第一个会想到Html,他就是一�
 ***
 ```
 效果：
+
 -----
+----
 
 ## 图片
 语法：
@@ -101,7 +103,54 @@ Makedown是一种标记语言，大多数人第一个会想到Html,他就是一�
 ![我是图片alt](/img/rainbow.png '我是titel')
 ```
 效果：
-!['我是图片alt'](/img/rainbow.png '我是titel')
+!['我是图片alt'](/img/rainbowico.png '我是titel')
+
+> markdown在插入图片时，默认图片靠左，有些时候我们想要设置图片居中，或者靠右就可以使用下面程序：
+```
+<div align=center>![这里写图片描述](http:...)
+<div align=right>![这里写图片描述](http:..)
+```
+
+实例：
+1. 图片居中
+```
+<div align=center>![图片居中](/img/rainbowico.png)
+```
+2. 图片靠右
+```
+<div align=center>![图片靠右](/img/rainbowico.png)
+```
+
+效果：
+1. 图片居中
+<div align=center>![图片居中](/img/rainbowico.png)
+2. 图片靠右
+<div align=right>![图片居中](/img/rainbowico.png)
+
+
+> 图片大小，有两种设置方法,一种是直接设置图片大小，另一种是输入缩放图片缩放百分比：
+```
+<img src="http:..." width = "100" height = "100" div align=right />
+<img src="http:..." width = 30% height = 30% />
+```
+
+实例：
+1. 图片大小为50x50
+```
+<img src="/img/rainbowico.png" width = "100" height = "100" div align=right />
+```
+2. 图片扩大20%
+```
+<img src="/img/rainbowico.png" width = 20% height = 20% />
+```
+
+效果:
+1. 图片大小为50x50
+<img src="/img/rainbowico.png" width = "50" height = "50" div align=right />
+
+2. 图片扩大20%
+<img src="/img/rainbowico.png" width = 20% height = 20% />
+
 
 ----------------
 
@@ -267,6 +316,65 @@ int main(int argc, char *argv[])
 	return 0;                                                                                                                                           
 }
 ```
+
+## 代办事项
+代办事项和清单，在Ｍarkdown中，你住需要在代办的事项文本或者清单文本前面加上`-[]`即可．
+
+语法：
+- [ ]表示未完成
+- [x]表示已经完成
+
+试例：
+```
+- [x] 分析需求
+- [ ] 研发
+- [ ] 测试
+```
+效果:
+- [x] 分析需求
+- [ ] 研发
+- [ ] 测试
+
+## 转义符
+在markdown文档一般无法直接中输出被用于传唤格式的符号本身，通常需要用到转义符，也就是`\`来协助:
+如果要显示`*`,则可使用如下方式:
+```
+/*
+```
+> 常用的转义符号有：
+```
+\   反斜线
+`   反引号
+\*   星号
+\_   下划线
+{}  花括号
+[]  方括号
+()  圆括号
+#   井号
++   加号
+-   减号（连字符）
+.   句点
+!   感叹号
+```
+
+## 缩进
+在没一行开头的时候输入下面的代码，然后跟着输入文本即可．注意分号！
+语法:
+半角空格: `&ensp;` 或 `&#8194;`
+全角空格: `&emsp;` 或 `&#8195;`
+不换行空格: `&nbsp;` 或 `&#160;`
+示例:
+```
+正常文本
+&ensp;&#8194;半角空格缩进
+&emsp;&#8195;全角空格
+&nbsp;&#160;不换行空格
+```
+效果:
+正常文本
+&ensp;&#8194;半角空格缩进
+&emsp;&#8195;全角空格
+&nbsp;&#160;不换行空格
 
 ----------
 
